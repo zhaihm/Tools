@@ -15,15 +15,20 @@ def rmfile(dir_path, filename):
             rmfile(full_path, filename)
 
 def usage():
-    print('rmfile.py usage:')
+    print('Usage:')
     print('-r file to remove')
     print('-d remove matched directory')
+    print('-t specify a time to compare files')
+    print('-l remove files modified later than specified time, default earlier')
 
 dir_path = ""
 filename = ""
 removeDirectory = False
+modifyTime = ""
+removeEalier = True
 
-opts, args = getopt.getopt(sys.argv[1:], "r:d")
+
+opts, args = getopt.getopt(sys.argv[1:], "r:dt:l")
 
 if len(args) == 0:
     usage()
@@ -35,6 +40,10 @@ for op, value in opts:
         filename = value
     elif op == '-d':
         removeDirectory = True
+    elif op == '-t':
+        modifyTime = value
+    elif op == '-l':
+        removeEalier = False
     else:
         usage()
         sys.exit()
